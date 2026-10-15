@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#fbf6ee">
+<title>For you ♥</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  color-scheme: light;
+  --paper: #fbf6ee;
+  --paper-2: #f3eadd;
+  --card: #fffdf9;
+  --ink: #1f1a17;
+  --ink-2: #6f625a;
+  --rule: #e4d8c8;
+  --rose: #c8456b;
+  --rose-deep: #a8334f;
+  --rose-soft: #f8dbe3;
+  --rose-mid: #f2a8bc;
+  --gold: #f5e3a6;
+  --gold-ink: #6b4b00;
+  --key: #ece3d6;
+  --serif: 'Fraunces', Georgia, serif;
+  --sans: 'Libre Franklin', -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --cell: 34px;
+  --dockh: 0px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--paper);
+  background-image: radial-gradient(circle at 15% 10%, #fff7ef 0, transparent 45%), radial-gradient(circle at 90% 85%, #f7e9e4 0, transparent 40%);
+  background-attachment: fixed;
+  color: var(--ink);
+  font: 16px/1.45 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+[hidden] { display: none !important; }
+.eyebrow { font: 600 11px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); margin: 0; }
+
+/* ---------- lock screen ---------- */
+.lock { min-height: 100vh; min-height: 100dvh; display: grid; place-items: center; padding: 24px 16px; }
+.envelope {
+  width: min(380px, 100%); background: var(--card); border-radius: 18px; padding: 40px 28px 30px; text-align: center;
+  box-shadow: 0 1px 0 var(--rule), 0 18px 40px -18px rgba(90, 50, 40, .35);
+  position: relative;
+}
+.envelope::before { content: ""; position: absolute; inset: 8px; border: 1px dashed var(--rule); border-radius: 12px; pointer-events: none; }
+.seal { width: 74px; height: 74px; margin: 0 auto 18px; display: block; filter: drop-shadow(0 3px 4px rgba(120, 30, 50, .3)); }
+.to { font: 400 italic 44px/1.05 var(--serif); margin: 10px 0 26px; }
+.lock label { display: block; font: 400 italic 17px/1.4 var(--serif); color: var(--ink-2); margin-bottom: 14px; }
+.lock input {
+  width: 100%; font: 500 17px var(--sans); text-align: center; padding: 13px 14px; border-radius: 12px;
+  border: 1.5px solid var(--rule); background: var(--paper); color: var(--ink); outline: none;
+}
+.lock input:focus { border-color: var(--rose); box-shadow: 0 0 0 4px var(--rose-soft); }
+.btn {
+  display: block; width: 100%; margin-top: 12px; padding: 13px 16px; border-radius: 12px; border: 0;
+  background: var(--ink); color: #fff; font: 600 16px var(--sans); text-align: center; text-decoration: none;
+}
+.btn:active { transform: scale(.98); }
+.btn.rose { background: var(--rose); }
+.btn.ghost { background: transparent; color: var(--ink-2); }
+.btn:disabled { opacity: .6; }
+.msg { min-height: 22px; margin: 14px 0 0; font-size: 14px; color: var(--rose-deep); }
+.shake { animation: shake .42s; }
+@keyframes shake { 20% { transform: translateX(-7px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(2px); } }
+
+/* ---------- puzzle ---------- */
+.app { max-width: 1040px; margin: 0 auto; padding: 14px 16px calc(var(--dockh) + 28px); }
+.top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; padding: 4px 0 14px; }
+.top h1 { font: 600 26px/1.1 var(--serif); margin: 0; }
+.top p { margin: 4px 0 0; font-size: 13.5px; color: var(--ink-2); }
+.meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; padding-top: 2px; }
+.timer { font: 500 14px var(--sans); color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px; border: 0; border-radius: 999px; padding: 7px 12px 7px 10px;
+  background: var(--rose-soft); color: var(--rose-deep); font: 700 13px var(--sans);
+}
+.pill svg { width: 16px; height: 16px; }
+.pill.bump { animation: bump .5s; }
+@keyframes bump { 40% { transform: scale(1.18); } }
+
+.finbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 16px; padding: 12px 14px;
+  background: var(--card); border-radius: 14px; box-shadow: 0 0 0 1px var(--rule);
+}
+.finbar strong { font: 600 17px var(--serif); }
+.finbar button { border: 0; background: var(--rose); color: #fff; border-radius: 999px; padding: 8px 14px; font: 600 13px var(--sans); white-space: nowrap; }
+
+.board { display: grid; gap: 22px; }
+@media (min-width: 880px) {
+  .board { grid-template-columns: auto minmax(300px, 380px); align-items: start; justify-content: center; gap: 40px; }
+}
+.gridwrap { display: flex; justify-content: center; }
+.grid { display: grid; grid-template-columns: repeat(var(--w), var(--cell)); grid-auto-rows: var(--cell); gap: 1px; padding: 1px; }
+.cell {
+  position: relative; background: var(--card); box-shadow: 0 0 0 1px var(--ink);
+  display: flex; align-items: center; justify-content: center; cursor: pointer; user-select: none; -webkit-user-select: none;
+  font: 600 calc(var(--cell) * .56)/1 var(--sans); text-transform: uppercase; transition: background-color .12s;
+}
+.cell .n { position: absolute; top: 2px; left: 3px; font: 500 calc(var(--cell) * .26)/1 var(--sans); }
+.cell .ch { transform: translateY(6%); }
+.cell.solved { background: var(--gold); color: var(--gold-ink); }
+.cell.word { background: var(--rose-soft); }
+.cell.solved.word { background: #f3d39a; }
+.cell.sel { background: var(--rose-mid); }
+.cell.bad { animation: shake .42s; color: var(--rose-deep); }
+.cell.pop { animation: pop .55s cubic-bezier(.3, 1.6, .5, 1) both; animation-delay: calc(var(--i) * 45ms); }
+@keyframes pop { 40% { transform: scale(1.22); z-index: 2; } }
+
+.dock { display: flex; flex-direction: column; gap: 8px; }
+.cluebar { display: flex; align-items: stretch; background: var(--rose-soft); border-radius: 12px; min-height: 52px; }
+.cluebar .nav { border: 0; background: none; width: 40px; flex-shrink: 0; display: grid; place-items: center; color: var(--rose-deep); }
+.cluebar .nav svg { width: 18px; height: 18px; }
+.cluetext { flex: 1; border: 0; background: none; text-align: left; padding: 9px 2px; display: flex; gap: 10px; align-items: center; font: 400 15px/1.3 var(--sans); }
+.cluenum { font-weight: 700; color: var(--rose-deep); white-space: nowrap; }
+
+.lists { display: grid; gap: 18px; }
+.lists h2 { font: 600 11px/1 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-2); margin: 0 0 6px; padding: 0 10px; }
+.lists ol { list-style: none; margin: 0; padding: 0; }
+.lists li { display: flex; gap: 10px; padding: 8px 10px; border-radius: 10px; cursor: pointer; font-size: 15px; line-height: 1.35; border-left: 3px solid transparent; }
+.lists li .n { font-weight: 700; min-width: 1.3em; }
+.lists li.cur { background: var(--rose-soft); border-left-color: var(--rose); }
+.lists li.done { color: var(--ink-2); }
+.lists li.done .t::after { content: " ♥"; color: var(--rose); }
+
+/* touch: clue bar + keyboard docked at the bottom */
+.touch .dock {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; padding: 8px 6px calc(8px + env(safe-area-inset-bottom));
+  background: rgba(251, 246, 238, .96); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 -1px 0 var(--rule); transition: transform .25s ease;
+}
+.touch .dock.away { transform: translateY(105%); }
+.touch .cluebar { height: 78px; }
+.touch .cluetext { overflow: hidden; }
+.kb { display: none; }
+.touch .kb { display: flex; flex-direction: column; gap: 7px; }
+.kb .row { display: flex; gap: 5px; justify-content: center; }
+.kb button {
+  flex: 1; max-width: 42px; height: 46px; border: 0; border-radius: 7px; background: var(--key); padding: 0;
+  font: 600 18px var(--sans); box-shadow: 0 1px 0 #d2c6b6;
+}
+.kb button:active, .kb button.down { background: var(--rose-mid); }
+.kb button.wide { max-width: 64px; flex: 1.5; display: grid; place-items: center; }
+.kb button.wide svg { width: 24px; height: 24px; }
+
+/* ---------- gift cards ---------- */
+.wallet { margin-top: 34px; }
+.wallet-head { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 12px; }
+.wallet h2 { font: 600 22px var(--serif); margin: 0; }
+.wallet-head span { font-size: 13px; color: var(--ink-2); }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.gc {
+  position: relative; overflow: hidden; aspect-ratio: 1.586; border-radius: 14px; padding: 12px 13px; border: 0; text-align: left;
+  color: #fff; background: linear-gradient(135deg, var(--c1), var(--c2)); display: flex; flex-direction: column; justify-content: space-between;
+  box-shadow: 0 10px 22px -14px rgba(40, 20, 10, .6);
+}
+.gc::before, .gc::after { content: ""; position: absolute; border-radius: 50%; background: rgba(255, 255, 255, .1); pointer-events: none; }
+.gc::before { width: 70%; aspect-ratio: 1; right: -22%; top: -38%; }
+.gc::after { width: 46%; aspect-ratio: 1; right: 8%; bottom: -36%; background: rgba(255, 255, 255, .07); }
+.gc .brand { font: 600 19px/1.1 var(--serif); position: relative; padding-right: 38px; }
+.gc .amt { position: absolute; top: 12px; right: 13px; font: 700 14px var(--sans); }
+.gc .foot { display: flex; justify-content: space-between; align-items: flex-end; position: relative; }
+.gc .tag { font: 600 9.5px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
+.gc .heart { width: 16px; height: 16px; fill: rgba(255, 255, 255, .9); }
+.gc.big { padding: 20px 20px 18px; border-radius: 18px; }
+.gc.big .brand { font-size: 30px; padding-right: 64px; }
+.gc.big .amt { top: 20px; right: 20px; font-size: 20px; }
+.gc.big .tag { font-size: 11px; }
+.gc.big .heart { width: 22px; height: 22px; }
+.gc.locked {
+  background: repeating-linear-gradient(-45deg, var(--paper-2) 0 8px, var(--paper) 8px 16px); color: var(--ink-2);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.gc.locked::before, .gc.locked::after { display: none; }
+.gc.locked svg { width: 20px; height: 20px; fill: var(--ink-2); }
+.gc.locked .which { font: 600 15px var(--serif); color: var(--ink); }
+.gc.fresh { animation: pop .6s cubic-bezier(.3, 1.6, .5, 1); }
+
+/* ---------- sheet ---------- */
+.sheet { position: fixed; inset: 0; z-index: 50; background: rgba(31, 26, 23, .42); display: flex; align-items: flex-end; justify-content: center; animation: fade .2s; }
+@media (min-width: 600px) { .sheet { align-items: center; } .sheet-card { border-radius: 22px !important; } }
+@keyframes fade { from { opacity: 0; } }
+.sheet-card {
+  width: min(430px, 100%); max-height: 92vh; overflow-y: auto; background: var(--paper); border-radius: 22px 22px 0 0;
+  padding: 26px 20px calc(18px + env(safe-area-inset-bottom)); text-align: center; animation: up .42s cubic-bezier(.2, .9, .3, 1.15);
+}
+@keyframes up { from { transform: translateY(40%); opacity: 0; } }
+.sheet-card .eyebrow { margin-bottom: 16px; }
+.flip { perspective: 1100px; }
+.flip .inner { position: relative; transition: transform .8s cubic-bezier(.3, .8, .3, 1.1); transform-style: preserve-3d; aspect-ratio: 1.586; }
+.flip.open .inner { transform: rotateY(180deg); }
+.flip .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip .front { transform: rotateY(180deg); }
+.wrap {
+  border: 0; border-radius: 18px; padding: 0; overflow: hidden; background: linear-gradient(135deg, #d4567a, #a8334f);
+  box-shadow: 0 14px 28px -14px rgba(120, 30, 50, .7);
+}
+.wrap .rib-v, .wrap .rib-h { position: absolute; background: linear-gradient(90deg, #f6dc8e, #e9c45f, #f6dc8e); }
+.wrap .rib-v { left: 50%; top: 0; bottom: 0; width: 26px; transform: translateX(-50%); }
+.wrap .rib-h { top: 50%; left: 0; right: 0; height: 26px; transform: translateY(-50%); background: linear-gradient(180deg, #f6dc8e, #e9c45f, #f6dc8e); }
+.wrap .bow { position: absolute; left: 50%; top: 50%; width: 92px; transform: translate(-50%, -62%); }
+.below { position: relative; }
+.tapnote { position: absolute; top: 20px; left: 0; right: 0; margin: 0; font: 400 italic 17px var(--serif); color: var(--ink-2); animation: breathe 1.8s ease-in-out infinite; transition: opacity .2s; }
+.flip.open + .below .tapnote { opacity: 0; animation: none; }
+@keyframes breathe { 50% { opacity: .45; } }
+.details { opacity: 0; transform: translateY(8px); transition: opacity .4s .5s, transform .4s .5s; pointer-events: none; }
+.details.show { opacity: 1; transform: none; pointer-events: auto; }
+.memo { font: 400 italic 17px/1.4 var(--serif); color: var(--ink-2); margin: 18px 6px 4px; }
+.note { font-size: 15px; margin: 8px 6px 0; }
+.coderow { display: flex; align-items: center; gap: 10px; background: var(--card); border-radius: 12px; padding: 10px 10px 10px 14px; margin-top: 12px; box-shadow: 0 0 0 1px var(--rule); text-align: left; }
+.coderow .lbl { font: 600 10px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-2); width: 34px; flex-shrink: 0; }
+.coderow code { flex: 1; font: 600 16px/1.3 ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: .04em; word-break: break-all; user-select: all; -webkit-user-select: all; }
+.coderow button { border: 0; background: var(--rose-soft); color: var(--rose-deep); border-radius: 8px; padding: 8px 12px; font: 700 13px var(--sans); white-space: nowrap; }
+.fin h2 { font: 600 34px/1.1 var(--serif); margin: 0; }
+.fin .time { color: var(--ink-2); margin: 6px 0 18px; }
+.fin .letter { text-align: left; font: 400 18px/1.55 var(--serif); background: var(--card); border-radius: 14px; padding: 18px 18px 6px; box-shadow: 0 0 0 1px var(--rule); }
+.fin .letter p { margin: 0 0 12px; }
+.fin .sig { font: 400 italic 20px var(--serif); text-align: right; margin: 4px 4px 0; }
+
+/* ---------- hearts ---------- */
+.hearts { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
+.hearts span { position: absolute; bottom: -40px; animation: rise var(--d) ease-out var(--delay) forwards; opacity: 0; }
+@keyframes rise {
+  0% { transform: translate(0, 0) scale(.6) rotate(0); opacity: 0; }
+  12% { opacity: 1; }
+  100% { transform: translate(var(--x), -105vh) scale(1.1) rotate(var(--r)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .hearts { display: none; } .cell.pop, .gc.fresh { animation: none; } }
+</style>
+</head>
+<body>
+
+<main id="lock" class="lock">
+  <form id="pwform" class="envelope" autocomplete="off">
+    <svg class="seal" viewBox="0 0 80 80" aria-hidden="true">
+      <path fill="#b8395c" d="M40 3c4 0 6 3 9.6 3.7 3.6.7 6.8-1 10 1 3.2 2 3.4 5.6 6 8.2s6.2 2.8 8.2 6c2 3.2.3 6.4 1 10S78 37 78 40s-2.9 5.4-3.2 9.3c-.7 3.6 1 6.8-1 10s-5.6 3.4-8.2 6-2.8 6.2-6 8.2c-3.2 2-6.4.3-10 1C46 75.2 43.9 77 40 77s-6-2.9-9.6-3.6c-3.6-.7-6.8 1-10-1s-3.4-5.6-6-8.2-6.2-2.8-8.2-6c-2-3.2-.3-6.4-1-10C4.9 45.4 3 43.4 3 40s1.9-5.4 2.6-9c.7-3.6-1-6.8 1-10s5.6-3.4 8.2-6 2.8-6.2 6-8.2c3.2-2 6.4-.3 10-1C34 5 36 3 40 3z"/>
+      <circle cx="40" cy="40" r="26" fill="none" stroke="#e2829d" stroke-width="1.5" opacity=".7"/>
+      <path fill="#f9dbe3" d="M40 55.5l-2-1.8C30.8 47.2 26 42.9 26 37.6 26 33.3 29.4 30 33.6 30c2.4 0 4.8 1.1 6.4 2.9 1.6-1.8 4-2.9 6.4-2.9 4.2 0 7.6 3.3 7.6 7.6 0 5.3-4.8 9.6-12 16.1L40 55.5z"/>
+    </svg>
+    <p class="eyebrow">a little something for</p>
+    <h1 class="to">you</h1>
+    <label for="pw">The password is in your letter.</label>
+    <input id="pw" name="pw" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="password">
+    <button class="btn rose" id="pwbtn" type="submit">Open</button>
+    <p class="msg" id="pwmsg" role="status"></p>
+  </form>
+</main>
+
+<div id="app" class="app" hidden>
+  <header class="top">
+    <div><h1 id="title"></h1><p id="intro"></p></div>
+    <div class="meta">
+      <span class="timer" id="timer">0:00</span>
+      <button class="pill" id="pill" type="button" aria-label="Your gifts">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>
+        <span id="count">0/0</span>
+      </button>
+    </div>
+  </header>
+  <div id="finbar" class="finbar" hidden>
+    <strong id="finbarText"></strong>
+    <button type="button" id="finbarBtn">Read your note</button>
+  </div>
+  <div class="board">
+    <div class="gridwrap"><div id="grid" class="grid" role="grid" aria-label="Crossword"></div></div>
+    <div class="side">
+      <div id="dock" class="dock">
+        <div class="cluebar">
+          <button class="nav" id="prev" type="button" aria-label="Previous clue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="cluetext" id="cluetext" type="button"><span class="cluenum" id="cluenum"></span><span id="cluestr"></span></button>
+          <button class="nav" id="next" type="button" aria-label="Next clue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+        <div class="kb" id="kb"></div>
+      </div>
+      <div class="lists" id="lists" style="margin-top:18px">
+        <div><h2>Across</h2><ol id="across"></ol></div>
+        <div><h2>Down</h2><ol id="down"></ol></div>
+      </div>
+    </div>
+  </div>
+  <section class="wallet" id="wallet">
+    <div class="wallet-head"><h2>Your gifts</h2><span id="walletcount"></span></div>
+    <div class="cards" id="cards"></div>
+  </section>
+</div>
+
+<div id="sheet" class="sheet" hidden><div class="sheet-card" id="sheetcard" role="dialog" aria-modal="true"></div></div>
+<div id="hearts" class="hearts" aria-hidden="true"></div>
+
+<script id="vault" type="application/json">{"v":1,"iter":250000,"salt":"6Hie1OCUwHIww18SiEmnYA==","box":{"iv":"rnbrcp/Ldo9e2SFi","ct":"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"}}</script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const enc = new TextEncoder(), dec = new TextDecoder();
+  const b64 = s => Uint8Array.from(atob(s), ch => ch.charCodeAt(0));
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
+  const VAULT = JSON.parse($('#vault').textContent);
+  const NS = 'xwgift:' + VAULT.salt.slice(0, 12) + ':';
+  const store = {
+    get(k) { try { return JSON.parse(localStorage.getItem(NS + k)); } catch { return null; } },
+    set(k, v) { try { localStorage.setItem(NS + k, JSON.stringify(v)); } catch {} },
+  };
+  // ?reset wipes saved progress before anything can re-save it
+  if (new URLSearchParams(location.search).has('reset')) {
+    try { Object.keys(localStorage).filter(k => k.startsWith(NS)).forEach(k => localStorage.removeItem(k)); } catch {}
+    history.replaceState(null, '', location.pathname);
+  }
+  const isTouch = matchMedia('(hover: none) and (pointer: coarse)').matches;
+  if (isTouch) document.documentElement.classList.add('touch');
+
+  const HEART = '<svg class="heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+  const LOCK = '<svg viewBox="0 0 24 24"><path d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2zm-7-2a2 2 0 0 1 4 0v2h-4V7zm2 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>';
+  const BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M21 5H8.5L3 12l5.5 7H21a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M11 9l6 6M17 9l-6 6" stroke-linecap="round"/></svg>';
+
+  // ---------- crypto ----------
+  const normPw = s => s.normalize('NFC').trim().toLowerCase().replace(/\s+/g, ' ');
+  async function openBox(key, box) {
+    const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(box.iv) }, key, b64(box.ct));
+    return JSON.parse(dec.decode(pt));
+  }
+  async function pwKey(pw) {
+    const base = await crypto.subtle.importKey('raw', enc.encode(normPw(pw)), 'PBKDF2', false, ['deriveKey']);
+    return crypto.subtle.deriveKey({ name: 'PBKDF2', salt: b64(VAULT.salt), iterations: VAULT.iter, hash: 'SHA-256' },
+      base, { name: 'AES-GCM', length: 256 }, false, ['decrypt']);
+  }
+  async function hashKey(s) {
+    const h = await crypto.subtle.digest('SHA-256', enc.encode(s));
+    return crypto.subtle.importKey('raw', h, 'AES-GCM', false, ['decrypt']);
+  }
+  const unlock = async pw => openBox(await pwKey(pw), VAULT.box);
+
+  // ---------- lock screen ----------
+  const form = $('#pwform'), msg = $('#pwmsg'), pwbtn = $('#pwbtn');
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const pw = $('#pw').value;
+    if (!pw.trim()) return;
+    if (!window.crypto?.subtle) { msg.textContent = 'This browser can’t open it. Try Safari or Chrome.'; return; }
+    pwbtn.disabled = true; msg.textContent = 'Opening…';
+    try {
+      const payload = await unlock(pw);
+      store.set('pw', pw);
+      start(payload);
+    } catch {
+      msg.textContent = 'Hmm, that’s not it. Check your letter again ♡';
+      form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake');
+    } finally { pwbtn.disabled = false; }
+  });
+  const remembered = store.get('pw');
+  if (remembered && window.crypto?.subtle) {
+    $('#lock').style.visibility = 'hidden';
+    unlock(remembered).then(start).catch(() => { $('#lock').style.visibility = ''; });
+  }
+
+  // ---------- puzzle state ----------
+  let P, words = [], sel, dir = 'A', letters = {}, elapsed = 0, done = false, finalePending = false, ticking = null;
+  const cells = new Map(), solved = new Set(), gifts = {};
+  const other = d => (d === 'A' ? 'D' : 'A');
+  const dirName = d => (d === 'A' ? 'Across' : 'Down');
+  const locked = k => { const c = cells.get(k); return (c.A != null && solved.has(c.A)) || (c.D != null && solved.has(c.D)); };
+  const cur = () => { const c = cells.get(sel); return words[c[dir] ?? c[other(dir)]]; };
+  const guessOf = w => w.cells.map(k => letters[k] || '').join('');
+  const fmt = s => (s >= 3600 ? Math.floor(s / 3600) + ':' + String(Math.floor(s / 60) % 60).padStart(2, '0') : Math.floor(s / 60)) + ':' + String(s % 60).padStart(2, '0');
+  const save = () => store.set('state', { g: letters, t: elapsed });
+
+  function start(payload) {
+    P = payload;
+    $('#lock').hidden = true;
+    $('#app').hidden = false;
+    $('#title').textContent = P.title;
+    $('#intro').textContent = P.intro;
+    words = P.words.map((w, i) => ({
+      ...w, i,
+      cells: Array.from({ length: w.len }, (_, k) => (w.dir === 'A' ? `${w.r},${w.c + k}` : `${w.r + k},${w.c}`)),
+    }));
+    for (const w of words) w.cells.forEach((k, idx) => {
+      const c = cells.get(k) || { k, A: null, D: null, n: 0 };
+      c[w.dir] = w.i;
+      if (idx === 0) c.n = w.n;
+      cells.set(k, c);
+    });
+
+    const grid = $('#grid');
+    grid.style.setProperty('--w', P.w);
+    for (let r = 0; r < P.h; r++) for (let c = 0; c < P.w; c++) {
+      const k = `${r},${c}`, cell = cells.get(k), el = document.createElement('div');
+      if (cell) {
+        el.className = 'cell';
+        el.dataset.k = k;
+        el.setAttribute('role', 'gridcell');
+        el.innerHTML = (cell.n ? `<span class="n">${cell.n}</span>` : '') + '<span class="ch"></span>';
+        cell.el = el;
+        cell.ch = el.querySelector('.ch');
+      }
+      grid.appendChild(el);
+    }
+    for (const d of ['A', 'D']) {
+      $(d === 'A' ? '#across' : '#down').innerHTML = words.filter(w => w.dir === d)
+        .map(w => `<li data-w="${w.i}"><span class="n">${w.n}</span><span class="t">${esc(w.clue)}</span></li>`).join('');
+    }
+    $('#kb').innerHTML = ['QWERTYUIOP', 'ASDFGHJKL', 'ZXCVBNM'].map((row, i) =>
+      `<div class="row">${[...row].map(L => `<button type="button" data-key="${L}">${L}</button>`).join('')}${i === 2 ? `<button type="button" class="wide" data-key="BK" aria-label="Delete">${BACK}</button>` : ''}</div>`).join('');
+
+    const st = store.get('state') || {};
+    letters = st.g || {};
+    elapsed = st.t || 0;
+    $('#timer').textContent = fmt(elapsed);
+    sel = words[0].cells[0];
+    dir = words[0].dir;
+    wire();
+    renderWallet();
+    paint();
+    sizeGrid();
+
+    Promise.all(words.map(w => checkWord(w, true))).then(() => {
+      if (solved.size === words.length) return;
+      const next = words.find(w => !solved.has(w.i));
+      selectWord(next);
+      startTimer();
+    });
+  }
+
+  function sizeGrid() {
+    const dock = $('#dock');
+    if (isTouch) document.documentElement.style.setProperty('--dockh', dock.offsetHeight + 'px');
+    const wide = innerWidth >= 880;
+    const availW = Math.min(wide ? 600 : 620, innerWidth - 32 - (wide ? 420 : 0));
+    const top = $('.top').offsetHeight + ($('#finbar').hidden ? 0 : $('#finbar').offsetHeight + 16);
+    const availH = innerHeight - top - (isTouch ? dock.offsetHeight : 0) - 44;
+    const s = Math.floor(Math.max(24, Math.min(56, (availW - P.w) / P.w, (availH - P.h) / P.h)));
+    document.documentElement.style.setProperty('--cell', s + 'px');
+  }
+
+  function paint() {
+    const w = cur(), inWord = new Set(w.cells);
+    for (const [k, c] of cells) {
+      c.ch.textContent = letters[k] || '';
+      c.el.classList.toggle('word', inWord.has(k));
+      c.el.classList.toggle('sel', k === sel && !done);
+      c.el.classList.toggle('solved', locked(k));
+    }
+    $('#cluenum').textContent = w.n + w.dir;
+    $('#cluestr').textContent = w.clue;
+    document.querySelectorAll('.lists li').forEach(li => {
+      const i = +li.dataset.w;
+      li.classList.toggle('cur', i === w.i);
+      li.classList.toggle('done', solved.has(i));
+    });
+    $('#count').textContent = `${solved.size}/${words.length}`;
+    $('#walletcount').textContent = `${solved.size} of ${words.length} unwrapped`;
+  }
+
+  function selectWord(w, scroll) {
+    dir = w.dir;
+    sel = w.cells.find(k => !letters[k] && !locked(k)) || w.cells.find(k => !locked(k)) || w.cells[0];
+    paint();
+    if (scroll) $('#grid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  function jumpWord(delta, skipSolved) {
+    const at = cur().i;
+    for (let s = 1; s <= words.length; s++) {
+      const w = words[(at + delta * s + words.length * 2) % words.length];
+      if (!skipSolved || !solved.has(w.i)) return selectWord(w);
+    }
+  }
+
+  // ---------- typing ----------
+  function input(L) {
+    if (done) return;
+    const w = cur();
+    if (solved.has(w.i)) return jumpWord(1, true);
+    let i = w.cells.indexOf(sel);
+    while (i < w.len && locked(w.cells[i])) i++;
+    if (i >= w.len) i = w.cells.findIndex(k => !locked(k));
+    const k = w.cells[i];
+    letters[k] = L;
+    let j = -1;
+    for (let x = i + 1; x < w.len && j < 0; x++) if (!locked(w.cells[x]) && !letters[w.cells[x]]) j = x;
+    for (let x = i + 1; x < w.len && j < 0; x++) if (!locked(w.cells[x])) j = x;
+    sel = w.cells[j < 0 ? i : j];
+    paint();
+    save();
+    const c = cells.get(k);
+    for (const wi of [c.A, c.D]) if (wi != null) checkWord(words[wi], false);
+  }
+  function backspace() {
+    if (done) return;
+    const w = cur();
+    if (solved.has(w.i)) return;
+    if (letters[sel] && !locked(sel)) delete letters[sel];
+    else {
+      let j = w.cells.indexOf(sel) - 1;
+      while (j >= 0 && locked(w.cells[j])) j--;
+      if (j < 0) return;
+      sel = w.cells[j];
+      delete letters[sel];
+    }
+    paint();
+    save();
+  }
+  function arrow(key) {
+    const [dr, dc] = { ArrowUp: [-1, 0], ArrowDown: [1, 0], ArrowLeft: [0, -1], ArrowRight: [0, 1] }[key];
+    const want = dr ? 'D' : 'A';
+    if (dir !== want && cells.get(sel)[want] != null) { dir = want; return paint(); }
+    let [r, c] = sel.split(',').map(Number);
+    while (true) {
+      r += dr; c += dc;
+      if (r < 0 || c < 0 || r >= P.h || c >= P.w) return;
+      const k = `${r},${c}`;
+      if (cells.has(k)) {
+        sel = k;
+        if (cells.get(k)[dir] == null) dir = other(dir);
+        return paint();
+      }
+    }
+  }
+
+  // ---------- checking: the right answer is the only key that opens its gift ----------
+  async function checkWord(w, silent) {
+    if (solved.has(w.i)) return;
+    const guess = guessOf(w);
+    if (guess.length !== w.len) return;
+    let gift;
+    try { gift = await openBox(await hashKey(`gift|${VAULT.salt}|${guess}`), w.box); }
+    catch {
+      if (!silent && guessOf(w) === guess) wiggle(w);
+      return;
+    }
+    if (solved.has(w.i) || guessOf(w) !== guess) return;
+    solved.add(w.i);
+    gifts[w.i] = { ...gift, answer: guess };
+    renderWallet(silent ? null : w.i);
+    if (solved.size === words.length) {
+      await finish(silent);
+    } else if (!silent) {
+      jumpWord(1, true);
+    }
+    paint();
+    if (!silent) {
+      w.cells.forEach((k, idx) => {
+        const el = cells.get(k).el;
+        el.style.setProperty('--i', idx);
+        el.classList.remove('pop'); void el.offsetWidth; el.classList.add('pop');
+      });
+      const pill = $('#pill');
+      pill.classList.remove('bump'); void pill.offsetWidth; pill.classList.add('bump');
+      setTimeout(() => showGift(w, true), 650);
+    }
+  }
+  function wiggle(w) {
+    w.cells.forEach(k => {
+      const el = cells.get(k).el;
+      el.classList.remove('bad'); void el.offsetWidth; el.classList.add('bad');
+      setTimeout(() => el.classList.remove('bad'), 900);
+    });
+  }
+
+  async function finish(silent) {
+    done = true;
+    clearInterval(ticking);
+    save();
+    try { P.fin = await openBox(await hashKey(`finale|${VAULT.salt}|${words.map(w => gifts[w.i].answer).join('|')}`), P.finale); }
+    catch { P.fin = null; }
+    store.set('done', elapsed);
+    $('#finbarText').textContent = `Solved in ${fmt(elapsed)} ♥`;
+    $('#finbar').hidden = false;
+    $('#dock').classList.add('away');
+    if (!silent) finalePending = true;
+  }
+
+  // ---------- gifts ----------
+  function cardFace(g, big) {
+    return `<span class="amt">${esc(g.amount)}</span><span class="brand">${esc(g.brand)}</span>
+      <span class="foot"><span class="tag">gift card<br>for you, from me</span>${HEART}</span>`;
+  }
+  function renderWallet(freshIdx) {
+    $('#cards').innerHTML = words.map(w => {
+      const g = gifts[w.i];
+      if (!g) return `<button type="button" class="gc locked" data-w="${w.i}">${LOCK}<span><span class="which">${w.n} ${dirName(w.dir)}</span><br><span class="tag">solve to unwrap</span></span></button>`;
+      return `<button type="button" class="gc${w.i === freshIdx ? ' fresh' : ''}" data-w="${w.i}" style="--c1:${esc(g.color || '#a8334f')};--c2:${esc(g.color2 || g.color || '#c8456b')}">${cardFace(g)}</button>`;
+    }).join('');
+  }
+
+  function openSheet(html) {
+    $('#sheetcard').innerHTML = html;
+    $('#sheet').hidden = false;
+  }
+  function closeSheet() {
+    $('#sheet').hidden = true;
+    if (finalePending) { finalePending = false; setTimeout(showFinale, 250); }
+  }
+
+  function showGift(w, fresh) {
+    const g = gifts[w.i];
+    const rows = [['Code', g.code], ['PIN', g.pin]].filter(([, v]) => v)
+      .map(([l, v]) => `<div class="coderow"><span class="lbl">${l}</span><code>${esc(v)}</code><button type="button" data-copy="${esc(v)}">Copy</button></div>`).join('');
+    openSheet(`
+      <p class="eyebrow">${fresh ? 'You unlocked a gift' : `${w.n} ${dirName(w.dir)}`}</p>
+      <div class="flip${fresh ? '' : ' open'}" id="flip">
+        <div class="inner">
+          <button type="button" class="face wrap" id="unwrap" aria-label="Unwrap your gift">
+            <span class="rib-v"></span><span class="rib-h"></span>
+            <svg class="bow" viewBox="0 0 100 60"><path fill="#f2d27a" stroke="#d9ad3c" stroke-width="2" d="M50 34C38 14 12 4 8 18s20 22 42 16zM50 34c12-20 38-30 42-16s-20 22-42 16z"/><path fill="#e9c45f" stroke="#d9ad3c" stroke-width="2" d="M50 34l-14 24 8-2 6 4zM50 34l14 24-8-2-6 4z"/><circle cx="50" cy="34" r="8" fill="#f6dc8e" stroke="#d9ad3c" stroke-width="2"/></svg>
+          </button>
+          <div class="face front gc big" style="--c1:${esc(g.color || '#a8334f')};--c2:${esc(g.color2 || g.color || '#c8456b')}">${cardFace(g, true)}</div>
+        </div>
+      </div>
+      <div class="below">${fresh ? '<p class="tapnote">Tap the present to unwrap it</p>' : ''}
+      <div class="details${fresh ? '' : ' show'}" id="details">
+        <p class="memo">“${esc(w.clue)}”</p>
+        ${g.note ? `<p class="note">${esc(g.note)}</p>` : ''}
+        ${rows}
+        ${g.url ? `<a class="btn" href="${esc(g.url)}" target="_blank" rel="noopener">Open gift card</a>` : ''}
+        <button type="button" class="btn ghost" data-close>${done && finalePending ? 'One more thing…' : fresh ? 'Keep solving' : 'Close'}</button>
+      </div></div>`);
+    if (fresh) $('#unwrap').addEventListener('click', () => {
+      $('#flip').classList.add('open');
+      $('#details').classList.add('show');
+      hearts(16);
+    }, { once: true });
+  }
+
+  function showFinale() {
+    const f = P.fin;
+    const paras = (f?.text || '').split(/\n\s*\n/).map(p => `<p>${esc(p).replace(/\n/g, '<br>')}</p>`).join('');
+    openSheet(`<div class="fin">
+      <p class="eyebrow">all ${words.length} gifts unwrapped</p>
+      <h2>You solved it!</h2>
+      <p class="time">in ${fmt(elapsed)}</p>
+      ${paras ? `<div class="letter">${paras}<p class="sig">Love, ${esc(f.from)}</p></div>` : ''}
+      <button type="button" class="btn ghost" data-close>Close</button></div>`);
+    hearts(46);
+  }
+
+  function hearts(n) {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const box = $('#hearts'), colors = ['#c8456b', '#e46a8c', '#f2a8bc', '#a8334f', '#e9c45f'];
+    for (let i = 0; i < n; i++) {
+      const s = document.createElement('span');
+      s.textContent = '♥';
+      s.style.left = Math.random() * 100 + 'vw';
+      s.style.fontSize = 14 + Math.random() * 22 + 'px';
+      s.style.color = colors[i % colors.length];
+      s.style.setProperty('--d', 2.6 + Math.random() * 1.8 + 's');
+      s.style.setProperty('--delay', Math.random() * 0.7 + 's');
+      s.style.setProperty('--x', (Math.random() - 0.5) * 120 + 'px');
+      s.style.setProperty('--r', (Math.random() - 0.5) * 70 + 'deg');
+      box.appendChild(s);
+      setTimeout(() => s.remove(), 5500);
+    }
+  }
+
+  function startTimer() {
+    clearInterval(ticking);
+    ticking = setInterval(() => {
+      if (done || document.visibilityState !== 'visible' || !$('#sheet').hidden) return;
+      elapsed++;
+      $('#timer').textContent = fmt(elapsed);
+      if (elapsed % 5 === 0) save();
+    }, 1000);
+  }
+
+  // ---------- events ----------
+  function wire() {
+    $('#grid').addEventListener('click', e => {
+      const el = e.target.closest('.cell');
+      if (!el || done) return;
+      const k = el.dataset.k, c = cells.get(k);
+      if (k === sel && c.A != null && c.D != null) dir = other(dir);
+      else { sel = k; if (c[dir] == null) dir = other(dir); }
+      $('#dock').classList.remove('away');
+      paint();
+    });
+    $('#kb').addEventListener('pointerdown', e => {
+      const b = e.target.closest('button');
+      if (!b) return;
+      e.preventDefault();
+      b.classList.add('down');
+      setTimeout(() => b.classList.remove('down'), 110);
+      b.dataset.key === 'BK' ? backspace() : input(b.dataset.key);
+    });
+    $('#prev').addEventListener('click', () => jumpWord(-1, false));
+    $('#next').addEventListener('click', () => jumpWord(1, false));
+    $('#cluetext').addEventListener('click', () => {
+      if (cells.get(sel)[other(dir)] != null) { dir = other(dir); paint(); }
+    });
+    $('#lists').addEventListener('click', e => {
+      const li = e.target.closest('li');
+      if (li && !done) selectWord(words[+li.dataset.w], isTouch);
+    });
+    $('#cards').addEventListener('click', e => {
+      const b = e.target.closest('.gc');
+      if (!b) return;
+      const w = words[+b.dataset.w];
+      if (gifts[w.i]) showGift(w, false);
+      else { selectWord(w, true); $('#dock').classList.remove('away'); }
+    });
+    $('#pill').addEventListener('click', () => $('#wallet').scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    $('#finbarBtn').addEventListener('click', showFinale);
+    $('#sheet').addEventListener('click', e => {
+      if (e.target === $('#sheet') || e.target.closest('[data-close]')) return closeSheet();
+      const cp = e.target.closest('[data-copy]');
+      if (cp) {
+        const ok = () => { cp.textContent = 'Copied ♥'; setTimeout(() => (cp.textContent = 'Copy'), 1600); };
+        navigator.clipboard?.writeText(cp.dataset.copy).then(ok, () => {
+          const r = document.createRange(); r.selectNodeContents(cp.previousElementSibling);
+          getSelection().removeAllRanges(); getSelection().addRange(r);
+        });
+      }
+    });
+    document.addEventListener('keydown', e => {
+      if (!$('#sheet').hidden) { if (e.key === 'Escape') closeSheet(); return; }
+      if (e.metaKey || e.ctrlKey || e.altKey || done) return;
+      if (/^[a-z]$/i.test(e.key)) input(e.key.toUpperCase());
+      else if (e.key === 'Backspace' || e.key === 'Delete') backspace();
+      else if (e.key === 'Tab' || e.key === 'Enter') jumpWord(e.shiftKey ? -1 : 1, false);
+      else if (e.key.startsWith('Arrow')) arrow(e.key);
+      else if (e.key === ' ') { if (cells.get(sel)[other(dir)] != null) { dir = other(dir); paint(); } }
+      else return;
+      e.preventDefault();
+    });
+    document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'hidden') save(); });
+    addEventListener('resize', sizeGrid);
+    if (isTouch && 'IntersectionObserver' in window) {
+      new IntersectionObserver(([en]) => {
+        if (!done) $('#dock').classList.toggle('away', en.intersectionRatio < 0.35);
+      }, { threshold: [0, 0.35, 1] }).observe($('#grid'));
+    }
+  }
+})();
+</script>
+</body>
+</html>
