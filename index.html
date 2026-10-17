@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#fbf6ee">
-<title>For you ♥</title>
+<title>For Leillanie : )</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -71,6 +71,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .btn.ghost { background: transparent; color: var(--ink-2); }
 .btn:disabled { opacity: .6; }
 .msg { min-height: 22px; margin: 14px 0 0; font-size: 14px; color: var(--rose-deep); }
+.hint2 { margin: 6px 0 0; font: 600 20px ui-monospace, 'SF Mono', Menlo, monospace; letter-spacing: .14em; color: var(--ink); }
 .shake { animation: shake .42s; }
 @keyframes shake { 20% { transform: translateX(-7px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(2px); } }
 
@@ -131,7 +132,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .lists li .n { font-weight: 700; min-width: 1.3em; }
 .lists li.cur { background: var(--rose-soft); border-left-color: var(--rose); }
 .lists li.done { color: var(--ink-2); }
-.lists li.done .t::after { content: " ♥"; color: var(--rose); }
+.lists li.done .t::after { content: " ✓"; color: var(--rose); font-weight: 700; }
 
 /* touch: clue bar + keyboard docked at the bottom */
 .touch .dock {
@@ -167,16 +168,14 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .gc::before, .gc::after { content: ""; position: absolute; border-radius: 50%; background: rgba(255, 255, 255, .1); pointer-events: none; }
 .gc::before { width: 70%; aspect-ratio: 1; right: -22%; top: -38%; }
 .gc::after { width: 46%; aspect-ratio: 1; right: 8%; bottom: -36%; background: rgba(255, 255, 255, .07); }
-.gc .brand { font: 600 19px/1.1 var(--serif); position: relative; padding-right: 38px; }
-.gc .amt { position: absolute; top: 12px; right: 13px; font: 700 14px var(--sans); }
+.gc .brand { font: 600 19px/1.1 var(--serif); position: relative; }
+.gc .amt { position: relative; font: 700 22px/1 var(--sans); letter-spacing: .01em; }
 .gc .foot { display: flex; justify-content: space-between; align-items: flex-end; position: relative; }
 .gc .tag { font: 600 9.5px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; opacity: .85; }
-.gc .heart { width: 16px; height: 16px; fill: rgba(255, 255, 255, .9); }
 .gc.big { padding: 20px 20px 18px; border-radius: 18px; }
-.gc.big .brand { font-size: 30px; padding-right: 64px; }
-.gc.big .amt { top: 20px; right: 20px; font-size: 20px; }
+.gc.big .brand { font-size: 30px; }
+.gc.big .amt { font-size: 38px; }
 .gc.big .tag { font-size: 11px; }
-.gc.big .heart { width: 22px; height: 22px; }
 .gc.locked {
   background: repeating-linear-gradient(-45deg, var(--paper-2) 0 8px, var(--paper) 8px 16px); color: var(--ink-2);
   box-shadow: inset 0 0 0 1.5px var(--rule);
@@ -227,13 +226,13 @@ button { font: inherit; color: inherit; cursor: pointer; }
 .fin .letter p { margin: 0 0 12px; }
 .fin .sig { font: 400 italic 20px var(--serif); text-align: right; margin: 4px 4px 0; }
 
-/* ---------- hearts ---------- */
+/* ---------- confetti ---------- */
 .hearts { position: fixed; inset: 0; pointer-events: none; z-index: 60; overflow: hidden; }
-.hearts span { position: absolute; bottom: -40px; animation: rise var(--d) ease-out var(--delay) forwards; opacity: 0; }
-@keyframes rise {
-  0% { transform: translate(0, 0) scale(.6) rotate(0); opacity: 0; }
-  12% { opacity: 1; }
-  100% { transform: translate(var(--x), -105vh) scale(1.1) rotate(var(--r)); opacity: 0; }
+.hearts i { position: absolute; top: -24px; border-radius: 2px; opacity: 0; animation: fall var(--d) cubic-bezier(.25, .5, .45, 1) var(--delay) forwards; }
+@keyframes fall {
+  0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  85% { opacity: 1; }
+  100% { transform: translate(var(--x), 108vh) rotate(var(--r)); opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) { .hearts { display: none; } .cell.pop, .gc.fresh { animation: none; } }
 </style>
@@ -245,14 +244,15 @@ button { font: inherit; color: inherit; cursor: pointer; }
     <svg class="seal" viewBox="0 0 80 80" aria-hidden="true">
       <path fill="#b8395c" d="M40 3c4 0 6 3 9.6 3.7 3.6.7 6.8-1 10 1 3.2 2 3.4 5.6 6 8.2s6.2 2.8 8.2 6c2 3.2.3 6.4 1 10S78 37 78 40s-2.9 5.4-3.2 9.3c-.7 3.6 1 6.8-1 10s-5.6 3.4-8.2 6-2.8 6.2-6 8.2c-3.2 2-6.4.3-10 1C46 75.2 43.9 77 40 77s-6-2.9-9.6-3.6c-3.6-.7-6.8 1-10-1s-3.4-5.6-6-8.2-6.2-2.8-8.2-6c-2-3.2-.3-6.4-1-10C4.9 45.4 3 43.4 3 40s1.9-5.4 2.6-9c.7-3.6-1-6.8 1-10s5.6-3.4 8.2-6 2.8-6.2 6-8.2c3.2-2 6.4-.3 10-1C34 5 36 3 40 3z"/>
       <circle cx="40" cy="40" r="26" fill="none" stroke="#e2829d" stroke-width="1.5" opacity=".7"/>
-      <path fill="#f9dbe3" d="M40 55.5l-2-1.8C30.8 47.2 26 42.9 26 37.6 26 33.3 29.4 30 33.6 30c2.4 0 4.8 1.1 6.4 2.9 1.6-1.8 4-2.9 6.4-2.9 4.2 0 7.6 3.3 7.6 7.6 0 5.3-4.8 9.6-12 16.1L40 55.5z"/>
+      <text x="40" y="51" text-anchor="middle" fill="#f9dbe3" font-family="Fraunces, Georgia, serif" font-style="italic" font-weight="600" font-size="32">L</text>
     </svg>
     <p class="eyebrow">a little something for</p>
-    <h1 class="to">you</h1>
-    <label for="pw">The password is in your letter.</label>
+    <h1 class="to">Leillanie</h1>
+    <label for="pw">Hint: Your favorite song for a while, our song of the summer</label>
     <input id="pw" name="pw" type="text" autocapitalize="none" autocorrect="off" spellcheck="false" enterkeyhint="go" placeholder="password">
     <button class="btn rose" id="pwbtn" type="submit">Open</button>
     <p class="msg" id="pwmsg" role="status"></p>
+    <p class="hint2" id="hint2" hidden>Dont ____ __ __</p>
   </form>
 </main>
 
@@ -297,7 +297,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 <div id="sheet" class="sheet" hidden><div class="sheet-card" id="sheetcard" role="dialog" aria-modal="true"></div></div>
 <div id="hearts" class="hearts" aria-hidden="true"></div>
 
-<script id="vault" type="application/json">{"v":1,"iter":250000,"salt":"6Hie1OCUwHIww18SiEmnYA==","box":{"iv":"rnbrcp/Ldo9e2SFi","ct":"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"}}</script>
+<script id="vault" type="application/json">{"v":2,"iter":250000,"salt":"NvVT/aiP26T3Y03s2TmseA==","slots":[{"iv":"QsMJSGYKR231zmqT","ct":"qZ9bHfzLv5w3ypiJRm8JmbMRnJAU1tQzNtA2Us9Pn7xsxRWbT1FyrqgYWiAfZUwn3OrnC1psQcjakSN9i7Y="},{"iv":"Qt2JVdIlQb3w3MlC","ct":"thi9HMxP7jk5jv1weyXnI6M3lpNH/JJnRGlN0A+woUtmcG6cQFzfwgNS3dESqa5wsNPD/Qcj+z5ZokDuC74="},{"iv":"Bz+09K4KLIToeUyc","ct":"6XfwJvMpnigWAZtYt4RqCtuTwq60Iu8E9ZREf68kTyUpjMEP7nUjJKa54haw1DnsFs9z36R2LWoU9VY0d10="},{"iv":"0AjFKu7ELZxvNDfu","ct":"wNGtKYUS9qnZfwlvtKm+FW+Mr2J2qsOFxef2pFo6RPWSvsAicj4y8o1+tIGXaiXI6ENXAPt2jMBXtVzga7g="}],"box":{"iv":"gg/2f4euu2YK1htv","ct":"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"}}</script>
 <script>
 (() => {
   const $ = s => document.querySelector(s);
@@ -318,12 +318,11 @@ button { font: inherit; color: inherit; cursor: pointer; }
   const isTouch = matchMedia('(hover: none) and (pointer: coarse)').matches;
   if (isTouch) document.documentElement.classList.add('touch');
 
-  const HEART = '<svg class="heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
   const LOCK = '<svg viewBox="0 0 24 24"><path d="M17 9h-1V7a4 4 0 0 0-8 0v2H7a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-9a2 2 0 0 0-2-2zm-7-2a2 2 0 0 1 4 0v2h-4V7zm2 11a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/></svg>';
   const BACK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M21 5H8.5L3 12l5.5 7H21a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z"/><path d="M11 9l6 6M17 9l-6 6" stroke-linecap="round"/></svg>';
 
   // ---------- crypto ----------
-  const normPw = s => s.normalize('NFC').trim().toLowerCase().replace(/\s+/g, ' ');
+  const normPw = s => s.normalize('NFKD').toLowerCase().replace(/[^a-z0-9]/g, '');
   async function openBox(key, box) {
     const pt = await crypto.subtle.decrypt({ name: 'AES-GCM', iv: b64(box.iv) }, key, b64(box.ct));
     return JSON.parse(dec.decode(pt));
@@ -337,7 +336,16 @@ button { font: inherit; color: inherit; cursor: pointer; }
     const h = await crypto.subtle.digest('SHA-256', enc.encode(s));
     return crypto.subtle.importKey('raw', h, 'AES-GCM', false, ['decrypt']);
   }
-  const unlock = async pw => openBox(await pwKey(pw), VAULT.box);
+  async function unlock(pw) {
+    const key = await pwKey(pw);
+    for (const slot of VAULT.slots) {
+      try {
+        const k = await crypto.subtle.importKey('raw', b64(await openBox(key, slot)), 'AES-GCM', false, ['decrypt']);
+        return await openBox(k, VAULT.box);
+      } catch {}
+    }
+    throw new Error('wrong password');
+  }
 
   // ---------- lock screen ----------
   const form = $('#pwform'), msg = $('#pwmsg'), pwbtn = $('#pwbtn');
@@ -352,7 +360,9 @@ button { font: inherit; color: inherit; cursor: pointer; }
       store.set('pw', pw);
       start(payload);
     } catch {
-      msg.textContent = 'Hmm, that’s not it. Check your letter again ♡';
+      const h2 = $('#hint2');
+      msg.textContent = h2.textContent.trim() ? 'Not quite. Here’s another hint:' : 'Not quite, try again.';
+      if (h2.textContent.trim()) h2.hidden = false;
       form.classList.remove('shake'); void form.offsetWidth; form.classList.add('shake');
     } finally { pwbtn.disabled = false; }
   });
@@ -572,7 +582,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
     try { P.fin = await openBox(await hashKey(`finale|${VAULT.salt}|${words.map(w => gifts[w.i].answer).join('|')}`), P.finale); }
     catch { P.fin = null; }
     store.set('done', elapsed);
-    $('#finbarText').textContent = `Solved in ${fmt(elapsed)} ♥`;
+    $('#finbarText').textContent = `Solved in ${fmt(elapsed)}`;
     $('#finbar').hidden = false;
     $('#dock').classList.add('away');
     if (!silent) finalePending = true;
@@ -580,8 +590,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
 
   // ---------- gifts ----------
   function cardFace(g, big) {
-    return `<span class="amt">${esc(g.amount)}</span><span class="brand">${esc(g.brand)}</span>
-      <span class="foot"><span class="tag">gift card<br>for you, from me</span>${HEART}</span>`;
+    return `<span class="brand">${esc(g.brand)}</span><span class="amt">${esc(g.amount)}</span>`;
   }
   function renderWallet(freshIdx) {
     $('#cards').innerHTML = words.map(w => {
@@ -605,7 +614,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
     const rows = [['Code', g.code], ['PIN', g.pin]].filter(([, v]) => v)
       .map(([l, v]) => `<div class="coderow"><span class="lbl">${l}</span><code>${esc(v)}</code><button type="button" data-copy="${esc(v)}">Copy</button></div>`).join('');
     openSheet(`
-      <p class="eyebrow">${fresh ? 'You unlocked a gift' : `${w.n} ${dirName(w.dir)}`}</p>
+      <p class="eyebrow">${fresh ? 'You got it : )' : `${w.n} ${dirName(w.dir)}`}</p>
       <div class="flip${fresh ? '' : ' open'}" id="flip">
         <div class="inner">
           <button type="button" class="face wrap" id="unwrap" aria-label="Unwrap your gift">
@@ -617,7 +626,6 @@ button { font: inherit; color: inherit; cursor: pointer; }
       </div>
       <div class="below">${fresh ? '<p class="tapnote">Tap the present to unwrap it</p>' : ''}
       <div class="details${fresh ? '' : ' show'}" id="details">
-        <p class="memo">“${esc(w.clue)}”</p>
         ${g.note ? `<p class="note">${esc(g.note)}</p>` : ''}
         ${rows}
         ${g.url ? `<a class="btn" href="${esc(g.url)}" target="_blank" rel="noopener">Open gift card</a>` : ''}
@@ -626,7 +634,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
     if (fresh) $('#unwrap').addEventListener('click', () => {
       $('#flip').classList.add('open');
       $('#details').classList.add('show');
-      hearts(16);
+      confetti(60);
     }, { once: true });
   }
 
@@ -637,26 +645,26 @@ button { font: inherit; color: inherit; cursor: pointer; }
       <p class="eyebrow">all ${words.length} gifts unwrapped</p>
       <h2>You solved it!</h2>
       <p class="time">in ${fmt(elapsed)}</p>
-      ${paras ? `<div class="letter">${paras}<p class="sig">Love, ${esc(f.from)}</p></div>` : ''}
+      ${paras ? `<div class="letter">${paras}<p class="sig">${esc(f.signoff || 'Love,')}<br>${esc(f.from)}</p></div>` : ''}
       <button type="button" class="btn ghost" data-close>Close</button></div>`);
-    hearts(46);
+    confetti(140);
   }
 
-  function hearts(n) {
+  function confetti(n) {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    const box = $('#hearts'), colors = ['#c8456b', '#e46a8c', '#f2a8bc', '#a8334f', '#e9c45f'];
+    const box = $('#hearts'), colors = ['#c8456b', '#f2a8bc', '#e9c45f', '#4f8fd6', '#5fb37a', '#f08a3c', '#9b6fd6'];
     for (let i = 0; i < n; i++) {
-      const s = document.createElement('span');
-      s.textContent = '♥';
-      s.style.left = Math.random() * 100 + 'vw';
-      s.style.fontSize = 14 + Math.random() * 22 + 'px';
-      s.style.color = colors[i % colors.length];
-      s.style.setProperty('--d', 2.6 + Math.random() * 1.8 + 's');
-      s.style.setProperty('--delay', Math.random() * 0.7 + 's');
-      s.style.setProperty('--x', (Math.random() - 0.5) * 120 + 'px');
-      s.style.setProperty('--r', (Math.random() - 0.5) * 70 + 'deg');
-      box.appendChild(s);
-      setTimeout(() => s.remove(), 5500);
+      const c = document.createElement('i');
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.width = 6 + Math.random() * 5 + 'px';
+      c.style.height = 9 + Math.random() * 7 + 'px';
+      c.style.background = colors[i % colors.length];
+      c.style.setProperty('--d', 2.2 + Math.random() * 1.8 + 's');
+      c.style.setProperty('--delay', Math.random() * 0.6 + 's');
+      c.style.setProperty('--x', (Math.random() - 0.5) * 220 + 'px');
+      c.style.setProperty('--r', (Math.random() - 0.5) * 1440 + 'deg');
+      box.appendChild(c);
+      setTimeout(() => c.remove(), 5000);
     }
   }
 
@@ -711,7 +719,7 @@ button { font: inherit; color: inherit; cursor: pointer; }
       if (e.target === $('#sheet') || e.target.closest('[data-close]')) return closeSheet();
       const cp = e.target.closest('[data-copy]');
       if (cp) {
-        const ok = () => { cp.textContent = 'Copied ♥'; setTimeout(() => (cp.textContent = 'Copy'), 1600); };
+        const ok = () => { cp.textContent = 'Copied!'; setTimeout(() => (cp.textContent = 'Copy'), 1600); };
         navigator.clipboard?.writeText(cp.dataset.copy).then(ok, () => {
           const r = document.createRange(); r.selectNodeContents(cp.previousElementSibling);
           getSelection().removeAllRanges(); getSelection().addRange(r);
